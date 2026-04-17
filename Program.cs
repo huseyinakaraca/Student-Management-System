@@ -17,7 +17,7 @@ namespace OgrenciYonetimSistemi
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
             while (true) 
             {
-                Console.WriteLine("Secim Yapiniz:\n 1-Ogrenci Ekle: \n 2-Ogrenci Bilgilerini Getir:\n 3-Cikis Yap:\n");
+                Console.WriteLine("Secim Yapiniz:\n 1-Ogrenci Ekle:\n 2-Ogrenci Bilgilerini Getir:\n 3-Ogrenci Silme:\n 4-Ogrenci Bilgilerini Güncelleme:\n 5-Cikis Yapma:\n");
                 string secim = Console.ReadLine();
                 if (secim == "1")
                 {
@@ -65,6 +65,40 @@ namespace OgrenciYonetimSistemi
                     Console.WriteLine();
                 }
                 else if (secim == "3")
+                {
+                    Console.Write("Silmek istediginiz ogrencini numarasini giriniz: ");
+                    int No = int.Parse(Console.ReadLine()); 
+                    using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
+                    {
+                        baglanti.Open();
+                        string sqlDelete = "DELETE FROM Ogrenciler WHERE Numara = @p1";
+                        SqlCommand komut = new SqlCommand(sqlDelete, baglanti);
+                        komut.Parameters.AddWithValue("@p1", No);
+                        komut.ExecuteNonQuery();
+                        Console.WriteLine("Ogrenci Silindi.");
+                    }
+                }
+                else if (secim == "4")
+                {
+                    Console.Write("Güncellemek istediginiz ogrenci no'sunu giriniz: ");
+                    int No = int.Parse(Console.ReadLine());
+                    Console.Write("Ogrencinin yeni adi: ");
+                    string yeniAd = Console.ReadLine();
+                    Console.Write("Ogrencinin yeni notu: ");
+                    int yeniNot = int.Parse(Console.ReadLine());
+                    using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
+                    {
+                        baglanti.Open();
+                        string sqlGuncelleme = "UPDATE Ogrenciler SET Ad = @p1 , Notu = @p2 WHERE Numara = @p3";
+                        SqlCommand komut = new SqlCommand(sqlGuncelleme, baglanti);
+                        komut.Parameters.AddWithValue("@p1", yeniAd);
+                        komut.Parameters.AddWithValue("@p2", yeniNot);
+                        komut.Parameters.AddWithValue("@p3", No);
+                        komut.ExecuteNonQuery();
+                        Console.WriteLine("Ogrenci basari ile guncellendi!");
+                    }
+                }
+                else if (secim == "5")
                 {
                     Console.WriteLine("Cikis Yapiliyor......");
                     break;
