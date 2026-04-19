@@ -39,6 +39,8 @@
             button3 = new Button();
             button4 = new Button();
             dataGridView1 = new DataGridView();
+            textBox4 = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(231, 10);
+            label2.Location = new Point(285, 10);
             label2.Name = "label2";
             label2.Size = new Size(62, 20);
             label2.TabIndex = 1;
@@ -63,7 +65,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(397, 10);
+            label3.Location = new Point(486, 10);
             label3.Name = "label3";
             label3.Size = new Size(34, 20);
             label3.TabIndex = 2;
@@ -78,14 +80,14 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(201, 33);
+            textBox2.Location = new Point(249, 33);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(125, 27);
             textBox2.TabIndex = 4;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(353, 33);
+            textBox3.Location = new Point(442, 33);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(125, 27);
             textBox3.TabIndex = 5;
@@ -139,11 +141,30 @@
             dataGridView1.Size = new Size(809, 253);
             dataGridView1.TabIndex = 10;
             // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(612, 33);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(125, 27);
+            textBox4.TabIndex = 12;
+            textBox4.TextChanged += textBox4_TextChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(633, 10);
+            label4.Name = "label4";
+            label4.Size = new Size(84, 20);
+            label4.TabIndex = 13;
+            label4.Text = "İsim Arama";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label4);
+            Controls.Add(textBox4);
             Controls.Add(dataGridView1);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -175,5 +196,7 @@
         private Button button3;
         private Button button4;
         private DataGridView dataGridView1;
+        private TextBox textBox4;
+        private Label label4;
     }
 }
