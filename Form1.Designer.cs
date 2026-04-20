@@ -42,6 +42,7 @@
             textBox4 = new TextBox();
             label4 = new Label();
             comboBox1 = new ComboBox();
+            button5 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -136,11 +137,12 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(41, 252);
+            dataGridView1.Location = new Point(12, 253);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(696, 317);
+            dataGridView1.Size = new Size(705, 310);
             dataGridView1.TabIndex = 10;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // textBox4
             // 
@@ -167,11 +169,22 @@
             comboBox1.Size = new Size(151, 28);
             comboBox1.TabIndex = 14;
             // 
+            // button5
+            // 
+            button5.Location = new Point(766, 534);
+            button5.Name = "button5";
+            button5.Size = new Size(112, 29);
+            button5.TabIndex = 15;
+            button5.Text = "Çıkış Yap";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(890, 575);
+            Controls.Add(button5);
             Controls.Add(comboBox1);
             Controls.Add(label4);
             Controls.Add(textBox4);
@@ -210,5 +223,6 @@
         private TextBox textBox4;
         private Label label4;
         private ComboBox comboBox1;
+        private Button button5;
     }
 }

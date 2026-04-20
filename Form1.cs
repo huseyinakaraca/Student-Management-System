@@ -44,6 +44,13 @@ namespace OgrenciArayuzSistemi
             {
                 using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
                 {
+                    if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                        string.IsNullOrWhiteSpace(textBox2.Text) ||
+                        string.IsNullOrWhiteSpace(textBox3.Text))
+                    {
+                        MessageBox.Show("Lütfen Ad, Numara ve Not alanlarýný eksiksiz doldurunuz!", "Eksik Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     if (textBox1.Text.Any(char.IsDigit))
                     {
                         MessageBox.Show("Ýsim alanýnda rakam bulunamaz! Lütfen geçerli bir ad giriniz.", "Hatalý Ýsim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -81,7 +88,11 @@ namespace OgrenciArayuzSistemi
         private void button2_Click(object sender, EventArgs e)   //Sil
         {
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
-
+            DialogResult cevap = MessageBox.Show("Bu öðrenciyi sistemden kalýcý olarak silmek istediðinize emin misiniz?", "Silme Onayý", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (cevap == DialogResult.No)
+            {
+                return;
+            }
             using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
             {
                 baglanti.Open();
@@ -101,8 +112,8 @@ namespace OgrenciArayuzSistemi
                 baglanti.Open();
                 string sqlGuncelle = "UPDATE Ogrenciler SET Ad = @p1, Notu = @p2, BolumId = @p4 WHERE Numara = @p3";
                 SqlCommand komut = new SqlCommand(sqlGuncelle, baglanti);
-                komut.Parameters.AddWithValue("@p1", textBox1.Text); 
-                komut.Parameters.AddWithValue("@p2", double.Parse(textBox3.Text)); 
+                komut.Parameters.AddWithValue("@p1", textBox1.Text);
+                komut.Parameters.AddWithValue("@p2", double.Parse(textBox3.Text));
                 komut.Parameters.AddWithValue("@p3", int.Parse(textBox2.Text));
                 komut.Parameters.AddWithValue("@p4", comboBox1.SelectedValue);
                 komut.ExecuteNonQuery();
@@ -137,6 +148,20 @@ namespace OgrenciArayuzSistemi
                 comboBox1.DataSource = sanalTablo;
             }
         }
-
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int secilenSatir = e.RowIndex;
+                textBox1.Text = dataGridView1.Rows[secilenSatir].Cells[1].Value.ToString();
+                textBox2.Text = dataGridView1.Rows[secilenSatir].Cells[2].Value.ToString();
+                textBox3.Text = dataGridView1.Rows[secilenSatir].Cells[3].Value.ToString();
+                comboBox1.Text = dataGridView1.Rows[secilenSatir].Cells[4].Value.ToString();
+            }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
