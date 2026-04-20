@@ -41,6 +41,7 @@
             dataGridView1 = new DataGridView();
             textBox4 = new TextBox();
             label4 = new Label();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -135,10 +136,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(-1, 207);
+            dataGridView1.Location = new Point(41, 252);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(809, 253);
+            dataGridView1.Size = new Size(696, 317);
             dataGridView1.TabIndex = 10;
             // 
             // textBox4
@@ -158,11 +159,20 @@
             label4.TabIndex = 13;
             label4.Text = "İsim Arama";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(683, 121);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(890, 575);
+            Controls.Add(comboBox1);
             Controls.Add(label4);
             Controls.Add(textBox4);
             Controls.Add(dataGridView1);
@@ -178,6 +188,7 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -198,5 +209,6 @@
         private DataGridView dataGridView1;
         private TextBox textBox4;
         private Label label4;
+        private ComboBox comboBox1;
     }
 }

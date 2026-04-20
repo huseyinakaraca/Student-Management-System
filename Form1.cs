@@ -17,16 +17,27 @@ namespace OgrenciArayuzSistemi
             textBox3.Clear();
             textBox1.Focus();
         }
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)   //Listele
         {
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
-            SqlConnection baglanti = new SqlConnection(baglantiAdresi);
-            SqlDataAdapter gemi = new SqlDataAdapter("SELECT * FROM Ogrenciler", baglanti);
-            DataTable sanalTablo = new DataTable();
-            gemi.Fill(sanalTablo);
-            dataGridView1.DataSource = sanalTablo;
+            using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
+            {
+                string sqlListele = @"
+        SELECT 
+            Ogrenciler.Id, 
+            Ogrenciler.Ad, 
+            Ogrenciler.Numara, 
+            Ogrenciler.Notu, 
+            Bolumler.BolumAd 
+        FROM Ogrenciler
+        LEFT JOIN Bolumler ON Ogrenciler.BolumId = Bolumler.Id";
+                SqlDataAdapter gemi = new SqlDataAdapter(sqlListele, baglanti);
+                DataTable sanalTablo = new DataTable();
+                gemi.Fill(sanalTablo);
+                dataGridView1.DataSource = sanalTablo;
+            }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)     //Ekle
         {
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
             try
@@ -39,11 +50,12 @@ namespace OgrenciArayuzSistemi
                         return;
                     }
                     baglanti.Open();
-                    string sqlEkle = "INSERT INTO Ogrenciler (Ad, Numara, Notu) VALUES (@p1, @p2, @p3)";
+                    string sqlEkle = "INSERT INTO Ogrenciler (Ad, Numara, Notu, BolumId) VALUES (@p1, @p2, @p3, @p4)";
                     SqlCommand komut = new SqlCommand(sqlEkle, baglanti);
                     komut.Parameters.AddWithValue("@p1", textBox1.Text);
                     komut.Parameters.AddWithValue("@p2", int.Parse(textBox2.Text));
                     komut.Parameters.AddWithValue("@p3", double.Parse(textBox3.Text));
+                    komut.Parameters.AddWithValue("@p4", comboBox1.SelectedValue);
                     komut.ExecuteNonQuery();
                     MessageBox.Show("Öðrenci Baþarýyla Eklendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     KutulariTemizle();
@@ -58,7 +70,7 @@ namespace OgrenciArayuzSistemi
                 MessageBox.Show("Beklenmeyen bir hata oluþtu: " + hata.Message, "Sistem Hatasý", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)   //Sil
         {
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
@@ -72,18 +84,19 @@ namespace OgrenciArayuzSistemi
                 MessageBox.Show("Öðrenci Sistemden Silindi!", "Uyarý", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)    //Güncelle
         {
             string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
             using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
             {
                 baglanti.Open();
-                string sqlGuncelle = "UPDATE Ogrenciler SET Ad = @p1, Notu = @p2 WHERE Numara = @p3";
+                string sqlGuncelle = "UPDATE Ogrenciler SET Ad = @p1, Notu = @p2, BolumId = @p4 WHERE Numara = @p3";
                 SqlCommand komut = new SqlCommand(sqlGuncelle, baglanti);
-                komut.Parameters.AddWithValue("@p1", textBox1.Text);
-                komut.Parameters.AddWithValue("@p2", double.Parse(textBox3.Text));
+                komut.Parameters.AddWithValue("@p1", textBox1.Text); 
+                komut.Parameters.AddWithValue("@p2", double.Parse(textBox3.Text)); 
                 komut.Parameters.AddWithValue("@p3", int.Parse(textBox2.Text));
+                komut.Parameters.AddWithValue("@p4", comboBox1.SelectedValue);
                 komut.ExecuteNonQuery();
                 MessageBox.Show("Öðrenci Bilgileri Baþarýyla Güncellendi!", "Sistem Mesajý", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 KutulariTemizle();
@@ -103,5 +116,19 @@ namespace OgrenciArayuzSistemi
                 dataGridView1.DataSource = sanalTablo;
             }
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string baglantiAdresi = "Server=DESKTOP-581KP98\\SQLEXPRESS;Database=OgrenciDB;Trusted_Connection=True;TrustServerCertificate=True;";
+            using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
+            {
+                SqlDataAdapter gemi = new SqlDataAdapter("SELECT * FROM Bolumler", baglanti);
+                DataTable sanalTablo = new DataTable();
+                gemi.Fill(sanalTablo);
+                comboBox1.DisplayMember = "BolumAd";
+                comboBox1.ValueMember = "Id";
+                comboBox1.DataSource = sanalTablo;
+            }
+        }
+
     }
 }
