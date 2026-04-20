@@ -50,6 +50,14 @@ namespace OgrenciArayuzSistemi
                         return;
                     }
                     baglanti.Open();
+                    SqlCommand kontrolKomutu = new SqlCommand("SELECT COUNT(*) FROM Ogrenciler WHERE Numara = @kontrolNo", baglanti);
+                    kontrolKomutu.Parameters.AddWithValue("@kontrolNo", int.Parse(textBox2.Text));
+                    int kisiSayisi = (int)kontrolKomutu.ExecuteScalar();
+                    if (kisiSayisi > 0)
+                    {
+                        MessageBox.Show("Bu numaraya sahip bir öðrenci zaten var! Lütfen farklý bir numara giriniz.", "Mükerrer Kayýt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                     string sqlEkle = "INSERT INTO Ogrenciler (Ad, Numara, Notu, BolumId) VALUES (@p1, @p2, @p3, @p4)";
                     SqlCommand komut = new SqlCommand(sqlEkle, baglanti);
                     komut.Parameters.AddWithValue("@p1", textBox1.Text);
