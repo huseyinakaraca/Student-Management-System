@@ -1,4 +1,4 @@
-﻿namespace OgrenciArayuzSistemi
+﻿namespace Student_Management_System
 {
     partial class Form1
     {
@@ -102,7 +102,6 @@
             button1.TabIndex = 6;
             button1.Text = "Ekle";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -112,7 +111,6 @@
             button2.TabIndex = 7;
             button2.Text = "Sil";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // button3
             // 
@@ -122,7 +120,6 @@
             button3.TabIndex = 8;
             button3.Text = "Güncelle";
             button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             // 
             // button4
             // 
@@ -132,7 +129,7 @@
             button4.TabIndex = 9;
             button4.Text = "Listele";
             button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            button4.Click += buttonListele_Click;
             // 
             // dataGridView1
             // 
@@ -142,7 +139,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(705, 310);
             dataGridView1.TabIndex = 10;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // textBox4
             // 
@@ -150,7 +146,6 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(125, 27);
             textBox4.TabIndex = 12;
-            textBox4.TextChanged += textBox4_TextChanged;
             // 
             // label4
             // 
@@ -177,7 +172,6 @@
             button5.TabIndex = 15;
             button5.Text = "Çıkış Yap";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
             // 
             // Form1
             // 
@@ -201,7 +195,6 @@
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
