@@ -6,6 +6,10 @@ namespace Student_Management_System.BLL
 {
     public class OgrenciBLL
     {
+        public static DataTable OgrenciAra(string aranan)
+        {
+            return OgrenciDAL.OgrenciAra(aranan);
+        }
         public static DataTable OgrencileriListele()
         {
             return OgrenciDAL.OgrencileriGetir();
@@ -31,5 +35,7 @@ namespace Student_Management_System.BLL
         {
             OgrenciDAL.OgrenciSil(numara);
         }
+
     }
+
 }

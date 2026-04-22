@@ -12,16 +12,17 @@ namespace Student_Management_System.DAL
         {
             using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
             {
-                string sql = @"SELECT Ogrenciler.Id, Ogrenciler.Ad, Ogrenciler.Numara, Ogrenciler.Notu, Bolumler.BolumAd 
-                               FROM Ogrenciler 
-                               LEFT JOIN Bolumler ON Ogrenciler.BolumId = Bolumler.Id";
+                string sql = @"SELECT Ogrenciler.Id, Ogrenciler.Ad, Ogrenciler.Numara, Ogrenciler.Notu, Bolumler.BolumAd
+                       FROM Ogrenciler
+                       LEFT JOIN Bolumler ON Ogrenciler.BolumId = Bolumler.Id
+                       ORDER BY Ogrenciler.Ad ASC";
                 SqlDataAdapter gemi = new SqlDataAdapter(sql, baglanti);
                 DataTable tablo = new DataTable();
                 gemi.Fill(tablo);
                 return tablo;
             }
         }
-            //BÖLÜMLERİ GETİRME 
+        //BÖLÜMLERİ GETİRME 
         public static DataTable BolumleriGetir()
         {
             using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
@@ -82,6 +83,22 @@ namespace Student_Management_System.DAL
                 SqlCommand komut = new SqlCommand("SELECT COUNT(*) FROM Ogrenciler WHERE Numara=@p1", baglanti);
                 komut.Parameters.AddWithValue("@p1", numara);
                 return (int)komut.ExecuteScalar();
+            }
+        }
+        //ARAMA MOTORU
+        public static DataTable OgrenciAra(string aranan)
+        {
+            using (SqlConnection baglanti = new SqlConnection(baglantiAdresi))
+            {
+                string sql = @"SELECT Ogrenciler.Id, Ogrenciler.Ad, Ogrenciler.Numara, Ogrenciler.Notu, Bolumler.BolumAd
+                       FROM Ogrenciler
+                       LEFT JOIN Bolumler ON Ogrenciler.BolumId = Bolumler.Id
+                       WHERE Ogrenciler.Ad LIKE @aranan";
+                SqlDataAdapter gemi = new SqlDataAdapter(sql, baglanti);
+                gemi.SelectCommand.Parameters.AddWithValue("@aranan", aranan + "%");
+                DataTable tablo = new DataTable();
+                gemi.Fill(tablo);
+                return tablo;
             }
         }
     }
